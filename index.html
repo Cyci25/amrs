@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patient Details</title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+    <!-- Google Fonts -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
+    <!-- Bootstrap core CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Material Design Bootstrap -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/css/mdb.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/form.css">
+    <link rel="stylesheet" href="css/dimen.css">
+    <script src="https://www.gstatic.com/firebasejs/7.22.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.22.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.22.0/firebase-firestore.js"></script>
+    <script src="js/user-auth.js"></script>
+</head>
+
+<body>
+    <header>
+        <!-- Start of navigation bar -->
+        <nav class="mb-1 navbar navbar-expand-lg navbar-dark info-color">
+            <a class="navbar-brand" href="#">Menu</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-4"
+                aria-controls="navbarSupportedContent-4" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent-4">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#">Report
+                            <span class="sr-only">(current)</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="edit1.html">Edit</a>
+                    </li>
+                </ul>
+
+                <ul class="navbar-nav ml-auto">
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-4" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false">
+                            <i class="fas fa-user"></i> Profile </a>
+                        <div class="dropdown-menu dropdown-menu-right dropdown-info"
+                            aria-labelledby="navbarDropdownMenuLink-4">
+                            <a class="dropdown-item" onclick="signOut()">Log out</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <!--/.Navbar -->
+    </header>
+    <Section>
+        <form id="enrollmentForm" class="form-bg sm-m-5px sm-p-25px p-80px sm-w-100" enctype="multipart/form-data">
+            <h2 class="head"><strong>Patient Details</strong></h2>
+            <div class="row">
+                <div class="col-lg-4 col-md-6">
+                    <div class="md-form form-group">
+                        <label for="onboardFirstName">First Name &nbsp;<span
+                                style="color: red !important; display: inline; float: none;">*</span></label>
+                        <input type="text" class="form-control" name="onboardFirstName" id="onboardFirstName"
+                            placeholder=" " required="required"><br>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="md-form form-group">
+                        <label for="onboardMiddleName">Middle Name &nbsp;<span
+                                style="color: red !important; display: inline; float: none;">*</span></label>
+                        <input type="text" class="form-control" name="onboardMiddleName" id="onboardMiddleName"
+                            placeholder=" " required="required"><br>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="md-form form-group">
+                        <label for="onboardLastName">Last Name &nbsp;<span
+                                style="color: red !important; display: inline; float: none;">*</span></label>
+                        <input type="text" class="form-control" name="onboardLastName" id="onboardLastName"
+                            placeholder=" " required="required"><br>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 ">
+                    <div class="md-form md-outline input-with-post-icon datepicker">
+                        <input placeholder="Select date" type="date" id="onboardDOB" name="onboardDOB"
+                            class="form-control">
+                        <label for="onboardDOB">Date of birth</label>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="md-form form-group">
+                        <label for="onboardIDNumber">ID Number &nbsp;<span
+                                style="color: red !important; display: inline; float: none;">*</span></label>
+
+                        <input type="number" class="form-control" name="onboardIDNumber" id="onboardIDNumber"
+                            placeholder=" " required="required"><br>
+                    </div>
+
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="md-form form-group">
+                        <label for="onboardPhoneNumberPrimary">Phone Number &nbsp;<span
+                                style="color: red !important; display: inline; float: none;">*</span></label>
+
+                        <input type="tel" pattern="[0-9]{10}" class="form-control" name="onboardPhoneNumberPrimary"
+                            id="onboardPhoneNumberPrimary" placeholder=" " required="required"><br>
+                    </div>
+
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="md-form form-group">
+                        <label for="onboardEmailAddress">Email Address &nbsp;<span
+                                style="color: red !important; display: inline; float: none;">*</span></label>
+
+                        <input type="email" class="form-control" name="onboardEmailAddress" id="onboardEmailAddress"
+                            placeholder=" " required="required"><br>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6">
+                    <div class="sm-m-25px-tb">
+                        <label for="onboardGender" class="color">Gender of Applicant</label><span
+                            style="color: red !important; display: inline; float: none;">*</span>
+                        <select id="onboardGender" name="onboardGender"
+                            class="form-control browser-default custom-select">
+                            <option value="">Select Gender</option>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="">
+                        <label for="onboardMaritalStatus" class="color">Marital Status</label><span
+                            style="color: red !important; display: inline; float: none;">*</span>
+                        <select id="onboardMaritalStatus" name="onboardMaritalStatus" class="form-control">
+                            <option value="">Select Marital Status</option>
+                            <option value="Married">Married</option>
+                            <option value="Single">Single</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <h5><strong>Patient Address</strong></h5>
+            <hr class="hr2"><br>
+            <div class="row">
+                <div class="col-lg-4 col-md-6">
+                    <div class="sm-m-25px-tb">
+                        <label for="onboardCounty" class="color">County</label><span
+                            style="color: red !important; display: inline; float: none;">*</span>
+                        <select name="onboardCounty" id="onboardCounty" class="form-control" required="required">
+                            <option value="">Select County</option>
+                            <option value="baringo">Baringo</option>
+                            <option value="bomet">Bomet</option>
+                            <option value="bungoma">Bungoma</option>
+                            <option value="busia">Busia</option>
+                            <option value="elgeyo marakwet">Elgeyo Marakwet</option>
+                            <option value="embu">Embu</option>
+                            <option value="garissa">Garissa</option>
+                            <option value="homa bay">Homa Bay</option>
+                            <option value="isiolo">Isiolo</option>
+                            <option value="kajiado">Kajiado</option>
+                            <option value="kakamega">Kakamega</option>
+                            <option value="kericho">Kericho</option>
+                            <option value="kiambu">Kiambu</option>
+                            <option value="kilifi">Kilifi</option>
+                            <option value="kirinyaga">Kirinyaga</option>
+                            <option value="kisii">Kisii</option>
+                            <option value="kisumu">Kisumu</option>
+                            <option value="kitui">Kitui</option>
+                            <option value="kwale">Kwale</option>
+                            <option value="laikipia">Laikipia</option>
+                            <option value="lamu">Lamu</option>
+                            <option value="machakos">Machakos</option>
+                            <option value="makueni">Makueni</option>
+                            <option value="mandera">Mandera</option>
+                            <option value="meru">Meru</option>
+                            <option value="migori">Migori</option>
+                            <option value="marsabit">Marsabit</option>
+                            <option value="mombasa">Mombasa</option>
+                            <option value="muranga">Muranga</option>
+                            <option value="nairobi">Nairobi</option>
+                            <option value="nakuru">Nakuru</option>
+                            <option value="nandi">Nandi</option>
+                            <option value="narok">Narok</option>
+                            <option value="nyamira">Nyamira</option>
+                            <option value="nyandarua">Nyandarua</option>
+                            <option value="nyeri">Nyeri</option>
+                            <option value="samburu">Samburu</option>
+                            <option value="siaya">Siaya</option>
+                            <option value="taita taveta">Taita Taveta</option>
+                            <option value="tana river">Tana River</option>
+                            <option value="tharaka nithi">Tharaka Nithi</option>
+                            <option value="trans nzoia">Trans Nzoia</option>
+                            <option value="turkana">Turkana</option>
+                            <option value="uasin gishu">Uasin Gishu</option>
+                            <option value="vihiga">Vihiga</option>
+                            <option value="wajir">Wajir</option>
+                            <option value="pokot">West Pokot</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="sm-m-25px-tb">
+                        <label for="onboardSubCounty" class="color">Sub County</label><span
+                            style="color: red !important; display: inline; float: none;">*</span>
+                        <select name="onboardSubCounty" id="onboardSubCounty" class="form-control" required="required">
+                            <option value="">Select Sub County</option>
+                            <option value="Westlands">Westlands</option>
+                            <option value="Dagoretti North">Dagoretti North</option>
+                            <option value="Dagoretti South">Dagoretti South</option>
+                            <option value="Langata">Langata</option>
+                            <option value="Kibra">Kibra</option>
+                            <option value="Roysambu">Roysambu</option>
+                            <option value="Kasarani">Kasarani</option>
+                            <option value="Ruaraka">Ruaraka</option>
+                            <option value="Embakasi South">Embakasi South</option>
+                            <option value="Embakasi North">Embakasi North</option>
+                            <option value="Embakasi Central">Embakasi Central</option>
+                            <option value="Embakasi East">Embakasi East</option>
+                            <option value="Embakasi West">Embakasi West</option>
+                            <option value="Makadara">Makadara</option>
+                            <option value="Kamukunji">Kamukunji</option>
+                            <option value="Starehe">Starehe</option>
+                            <option value="Mathare">Mathare</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="md-form form-group">
+                        <label for="onboardPhysicalAddress">Physical Address &nbsp;<span
+                                style="color: red !important; display: inline; float: none;">*</span></label>
+
+                        <input type="text" class="form-control" name="onboardPhysicalAddress"
+                            id="onboardPhysicalAddress" placeholder=" " required="required"><br>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="md-form form-group">
+                        <label for="onboardPOBoxNumber">P.O.Box Address &nbsp;<span
+                                style="color: red !important; display: inline; float: none;">*</span></label>
+
+                        <input type="text" class="form-control" name="onboardPOBoxNumber" id="onboardPOBoxNumber"
+                            placeholder=" " required="required"><br>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="md-form form-group">
+                        <label for="onboardPostalCode">Code &nbsp;<span
+                                style="color: red !important; display: inline; float: none;">*</span></label>
+
+                        <input type="text" class="form-control" name="onboardPostalCode" id="onboardPostalCode"
+                            placeholder=" " required="required"><br>
+                    </div>
+                </div>
+
+            </div>
+            <br><br>
+            <h5><strong>Next of Kin</strong></h5>
+
+            <hr class="hr2"><br>
+            <div>
+                <!--Table markup-->
+
+                <table>
+
+                    <!--Table header -->
+
+                    <thead>
+                        <tr>
+                            <th for="kinfname">First Name <span
+                                    style="color: red !important; display: inline; float: none; background-color:inherit;">*</span><br>
+                            </th>
+
+                            <th for="kinlname">Last Name <span
+                                    style="color: red !important; display: inline; float: none; background-color:inherit;">*</span><br>
+                            </th>
+                            <th for="kinrelationship">Relationship <span
+                                    style="color: red !important; display: inline; float: none; background-color:inherit;">*</span><br>
+                            </th>
+                            <th for="kinid">ID Number <span
+                                    style="color: red !important; display: inline; float: none; background-color:inherit;">*</span><br>
+                            </th>
+                            <th for="kinaddress">Physical Address <span
+                                    style="color: red !important; display: inline; float: none; background-color:inherit;">*</span><br>
+                            </th>
+                            <th for="kinphonenumber">Telephone 1 <span
+                                    style="color: red !important; display: inline; float: none; background-color:inherit;">*</span><br>
+                            </th>
+                            <th for="kinphonenumber2">Telephone 2 <span
+                                    style="color: red !important; display: inline; float: none; background-color:inherit;">*</span><br>
+                            </th>
+
+                        </tr>
+                    </thead>
+
+                    <!--Table body -->
+
+                    <tbody>
+                        <tr>
+                            <td>
+                                <div class="md-form form-sm" style="margin-top: 0px; margin-bottom: 0px;">
+                                    <input type="text" name="onboardFNOKFirstName" id="onboardFNOKFirstName"
+                                        class="form-control form-control-sm">
+                                </div>
+                            </td>
+                            <td>
+                                <div class="md-form form-sm" style="margin-top: 0px; margin-bottom: 0px;">
+                                    <input type="text" name="onboardFNOKLastName" id="onboardFNOKLastName"
+                                        class="form-control form-control-sm">
+                                </div>
+                            </td>
+                            <td>
+                                <div class="md-form form-sm" style="margin-top: 0px; margin-bottom: 0px;">
+                                    <input type="text" name="onboardFNOKRelationship" id="onboardFNOKRelationship"
+                                        class="form-control form-control-sm">
+                                </div>
+                            </td>
+                            <td>
+                                <div class="md-form form-sm" style="margin-top: 0px; margin-bottom: 0px;">
+                                    <input type="number" name="onboardFNOKIDNumber" id="onboardFNOKIDNumber"
+                                        class="form-control form-control-sm">
+                                </div>
+                            </td>
+                            <td>
+                                <div class="md-form form-sm" style="margin-top: 0px; margin-bottom: 0px;">
+                                    <input type="text" name="onboardFNOKAddress" id="onboardFNOKAddress"
+                                        class="form-control form-control-sm">
+                                </div>
+                            </td>
+                            <td>
+                                <div class="md-form form-sm" style="margin-top: 0px; margin-bottom: 0px;">
+                                    <input type="number" name="onboardFNOKpPhoneNumber" id="onboardFNOKpPhoneNumber"
+                                        class="form-control form-control-sm">
+                                </div>
+                            </td>
+                            <td>
+                                <div class="md-form form-sm" style="margin-top: 0px; margin-bottom: 0px;">
+                                    <input type="number" name="onboardFNOKsPhoneNumber" id="onboardFNOKsPhoneNumber"
+                                        class="form-control form-control-sm">
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <br><br>
+
+            <hr class="hr2">
+            <div class="row">
+                <div class="col-md-4">
+                    <button id="onboardSubmitFormBtn" type="submit" class="btn btn-success">Submit Form</button>
+                </div>
+
+            </div>
+
+            <div class="row" style="position:fixed; bottom:0px; width:auto; z-index:1000" id="alertContainer" hidden>
+                <div class="col-md-12">
+                    <div class="alert alert-danger alert-dismissible fade show" id="alert" role="alert">
+                        <span></span>
+
+                    </div>
+                </div>
+            </div>
+        </form>
+
+    </Section>
+</body>
+
+</html>
